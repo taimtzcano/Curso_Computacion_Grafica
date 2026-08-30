@@ -1,3 +1,9 @@
+
+// Previo 3                                  Martínez Cano Tania
+//Fecha de Entrega: 30 de Agosto, 2026       320028603
+
+
+
 #include<iostream>
 
 //#define GLEW_STATIC
