@@ -1,6 +1,6 @@
 
-// Previo 4                                                Martínez Cano Tania
-// Fecha de Entrega: 4 de agosto, 2026                     320028603
+// Practica 4                                              Martínez Cano Tania
+// Fecha de Entrega: 11  de agosto, 2026                   320028603
 
 
 #include<iostream>
@@ -39,7 +39,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Previo4_Tania_Martinez", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica4_Tania_Martinez", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -86,48 +86,242 @@ int main() {
 	
 
 	// use with Perspective Projection
+// Arreglo de vértices con colores independientes por tipo de bloque
 	float vertices[] = {
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,//Front
-		0.5f, -0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
-		 0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  -0.5f, 0.5f, 0.0f, 0.0f,1.0f,
-      
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
-		0.5f,  0.5f, -0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f,  0.5f, 1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
+
+		// ==========================================
+		// 1. CUBO VERDE OLIVA (Caparazón Superior)
+		// ==========================================
+		// FRONT
+		-0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		-0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		-0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		// BACK
+		-0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		-0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		-0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		// RIGHT
+		 0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 // LEFT
+		 -0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 // BOTTOM
+		 -0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f, -0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		 // TOP
+		 -0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		  0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f,  0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
+		 -0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
+
+
+		 // ==========================================
+		 // 2. CUBO CAFÉ (Plastrón / Base del Cuerpo)
+		 // ==========================================
+		 // FRONT
+		 -0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		 -0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		 -0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		 // BACK
+		 -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		 -0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		 -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		 // RIGHT
+		  0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  // LEFT
+		  -0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  // BOTTOM
+		  -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f, -0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		  // TOP
+		  -0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		   0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f,  0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
+		  -0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
+
+
+		  // ==========================================
+		  // 3. CUBO VERDE CLARO (Piel: Cabeza y Aletas)
+		  // ==========================================
+		  // FRONT
+		  -0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		  -0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		  -0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		  // BACK
+		  -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		  -0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		  -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		  // RIGHT
+		   0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   // LEFT
+		   -0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   // BOTTOM
+		   -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f, -0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+		   // TOP
+		   -0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+			0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f,  0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
+		   -0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
+
+
+		   // ==========================================
+		   // 4. CUBO NEGRO (Ojos y Fosas Nasales)
+		   // ==========================================
+		   // FRONT
+		   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+		   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+		   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+		   // BACK
+		   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+		   -0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+		   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+		   // RIGHT
+			0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			// LEFT
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			// BOTTOM
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			// TOP
+			-0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+
+
+			// ==========================================
+			// 5. CUBO BLANCO (Pupilas / Brillo del Ojo)
+			// ==========================================
+			// FRONT
+			-0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			// BACK
+			-0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			// RIGHT
+			 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 // LEFT
+			 -0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 // BOTTOM
+			 -0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			 // TOP
+			 -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			  0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+			 -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f
 	};
 
 
@@ -202,39 +396,113 @@ int main() {
 
 		glBindVertexArray(VAO);
 	
-	    model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f));  //Ancho, grosor, profundidad
-		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
+	    //model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f));  //Ancho, grosor, profundidad
+		//model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //Tamaño de la pata
+		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //Posicion de la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+		glBindVertexArray(VAO);
+
+		// 1. CENTRO CUERPO (Cubo Verde Oliva -> Offset 0)
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //Posicion de la pata
+		model = glm::scale(model, glm::vec3(2.0f, 0.5f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
-		//PATA 2
+		// 2. PARTE BAJA CUERPO (Cubo Café -> Offset 36)
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); //Posicion de la pata
+		model = glm::scale(model, glm::vec3(2.0f, 0.4f, 2.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 36, 36);
 
-		//PATA 3
+		// 3. CABEZA (Cubo Verde Claro -> Offset 72)
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); //Posicion de la pata
+		model = glm::scale(model, glm::vec3(1.0f, 0.6f, 0.9f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.1f, 1.7f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		//PATA 4
+		// 4. ALETA DELANTERA IZQUIERDA (Cubo Verde Claro -> Offset 72)
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); //Posicion de la pata
+		model = glm::scale(model, glm::vec3(2.0f, 0.2f, 0.8f));
+		model = glm::translate(model, glm::vec3(-0.95f, -0.3f, 0.9f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 72, 36);
+
+		// 5. ALETA DELANTERA DERECHA (Cubo Verde Claro -> Offset 72)
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(2.0f, 0.2f, 0.8f));
+		model = glm::translate(model, glm::vec3(0.95f, -0.3f, 0.9f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 36);
+
+		// 6. ALETA TRASERA IZQUIERDA (Cubo Verde Claro -> Offset 72)
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.6f, 0.2f, 0.8f));
+		model = glm::translate(model, glm::vec3(-1.4f, -0.3f, -1.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 36);
+
+		// 7. ALETA TRASERA DERECHA (Cubo Verde Claro -> Offset 72)
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.6f, 0.2f, 0.8f));
+		model = glm::translate(model, glm::vec3(1.4f, -0.3f, -1.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 36);
+
+		// 8. OJO IZQUIERDO - BASE NEGRA (Cubo Negro -> Offset 108)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-0.52f, 0.00f, 1.70f));
+		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.12f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 36);
+
+		// 9. OJO IZQUIERDO - PUPILA BLANCA (Cubo Blanco -> Offset 144)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-0.525f, 0.00f, 1.82f));
+		model = glm::scale(model, glm::vec3(0.08f, 0.08f, 0.08f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 144, 36);
+
+		// 10. OJO DERECHO - BASE NEGRA (Cubo Negro -> Offset 108)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.52f, 0.00f, 1.70f));
+		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.12f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 36);
+
+		// 11. OJO DERECHO - PUPILA BLANCA (Cubo Blanco -> Offset 144)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.525f, 0.00f, 1.82f));
+		model = glm::scale(model, glm::vec3(0.08f, 0.08f, 0.08f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 144, 36);
+
+		// 12. FOSA NASAL IZQUIERDA (Cubo Negro -> Offset 108)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-0.15f, 0.10f, 1.99f));
+		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.01f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 36);
+
+		// 13. FOSA NASAL DERECHA (Cubo Negro -> Offset 108)
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.15f, 0.10f, 1.99f));
+		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.01f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 36);
+
+
 
 		glBindVertexArray(0);
 		// Swap the screen buffers
@@ -253,17 +521,17 @@ int main() {
 	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
 		 glfwSetWindowShouldClose(window, true);
 	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.08f;
+		 movX += 0.02f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.08f;
+		 movX -= 0.02f;
 	 if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
 		 movY += 0.08f;
 	 if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
 		 movY -= 0.08f;
 	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.08f;
+		 movZ -= 0.02f;
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.08f;
+		 movZ += 0.02f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		 rot += 0.4f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
