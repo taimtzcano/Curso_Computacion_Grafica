@@ -89,9 +89,7 @@ int main() {
 // Arreglo de vértices con colores independientes por tipo de bloque
 	float vertices[] = {
 
-		// ==========================================
-		// 1. CUBO VERDE OLIVA (Caparazón Superior)
-		// ==========================================
+		// CUBO VERDE OLIVA - Caparazón
 		// FRONT
 		-0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
 		 0.5f, -0.5f,  0.5f,  0.28f, 0.58f, 0.18f,
@@ -136,9 +134,7 @@ int main() {
 		 -0.5f,  0.5f, -0.5f,  0.28f, 0.58f, 0.18f,
 
 
-		 // ==========================================
-		 // 2. CUBO CAFÉ (Plastrón / Base del Cuerpo)
-		 // ==========================================
+		 // CUBO CAFÉ - Base del Cuerpo
 		 // FRONT
 		 -0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
 		  0.5f, -0.5f,  0.5f,  0.45f, 0.35f, 0.20f,
@@ -183,9 +179,7 @@ int main() {
 		  -0.5f,  0.5f, -0.5f,  0.45f, 0.35f, 0.20f,
 
 
-		  // ==========================================
-		  // 3. CUBO VERDE CLARO (Piel: Cabeza y Aletas)
-		  // ==========================================
+		  // CUBO VERDE CLARO - Cabeza y Aletas
 		  // FRONT
 		  -0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
 		   0.5f, -0.5f,  0.5f,  0.35f, 0.68f, 0.25f,
@@ -230,9 +224,7 @@ int main() {
 		   -0.5f,  0.5f, -0.5f,  0.35f, 0.68f, 0.25f,
 
 
-		   // ==========================================
-		   // 4. CUBO NEGRO (Ojos y Fosas Nasales)
-		   // ==========================================
+		   // CUBO NEGRO - Ojos y Fosas Nasales
 		   // FRONT
 		   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
 			0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
@@ -277,9 +269,7 @@ int main() {
 			-0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
 
 
-			// ==========================================
-			// 5. CUBO BLANCO (Pupilas / Brillo del Ojo)
-			// ==========================================
+			// CUBO BLANCO - Pupilas
 			// FRONT
 			-0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
 			 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
@@ -411,91 +401,91 @@ int main() {
 
 		glBindVertexArray(VAO);
 
-		// 1. CENTRO CUERPO (Cubo Verde Oliva -> Offset 0)
+		// CENTRO DEL CUERPO
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(2.0f, 0.5f, 1.0f));
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// 2. PARTE BAJA CUERPO (Cubo Café -> Offset 36)
+		// PARTE BAJA CUERPO
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(2.0f, 0.4f, 2.0f));
 		model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 36, 36);
 
-		// 3. CABEZA (Cubo Verde Claro -> Offset 72)
+		// CABEZA
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(1.0f, 0.6f, 0.9f));
 		model = glm::translate(model, glm::vec3(0.0f, 0.1f, 1.7f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		// 4. ALETA DELANTERA IZQUIERDA (Cubo Verde Claro -> Offset 72)
+		// ALETA DELANTERA IZQUIERDA
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(2.0f, 0.2f, 0.8f));
 		model = glm::translate(model, glm::vec3(-0.95f, -0.3f, 0.9f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		// 5. ALETA DELANTERA DERECHA (Cubo Verde Claro -> Offset 72)
+		// ALETA DELANTERA DERECHA
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(2.0f, 0.2f, 0.8f));
 		model = glm::translate(model, glm::vec3(0.95f, -0.3f, 0.9f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		// 6. ALETA TRASERA IZQUIERDA (Cubo Verde Claro -> Offset 72)
+		// ALETA TRASERA IZQUIERDA
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.6f, 0.2f, 0.8f));
 		model = glm::translate(model, glm::vec3(-1.4f, -0.3f, -1.2f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		// 7. ALETA TRASERA DERECHA (Cubo Verde Claro -> Offset 72)
+		// ALETA TRASERA DERECHA
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.6f, 0.2f, 0.8f));
 		model = glm::translate(model, glm::vec3(1.4f, -0.3f, -1.2f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 72, 36);
 
-		// 8. OJO IZQUIERDO - BASE NEGRA (Cubo Negro -> Offset 108)
+		// OJO IZQUIERDO
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(-0.52f, 0.00f, 1.70f));
 		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.12f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 108, 36);
 
-		// 9. OJO IZQUIERDO - PUPILA BLANCA (Cubo Blanco -> Offset 144)
+		// PUPILA BLANCA IZQUIERDA
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(-0.525f, 0.00f, 1.82f));
 		model = glm::scale(model, glm::vec3(0.08f, 0.08f, 0.08f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 144, 36);
 
-		// 10. OJO DERECHO - BASE NEGRA (Cubo Negro -> Offset 108)
+		// OJO DERECHO
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.52f, 0.00f, 1.70f));
 		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.12f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 108, 36);
 
-		// 11. OJO DERECHO - PUPILA BLANCA (Cubo Blanco -> Offset 144)
+		// PUPILA BLANCA DERECHA
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.525f, 0.00f, 1.82f));
 		model = glm::scale(model, glm::vec3(0.08f, 0.08f, 0.08f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 144, 36);
 
-		// 12. FOSA NASAL IZQUIERDA (Cubo Negro -> Offset 108)
+		// FOSA NASAL IZQUIERDA
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(-0.15f, 0.10f, 1.99f));
 		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.01f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 108, 36);
 
-		// 13. FOSA NASAL DERECHA (Cubo Negro -> Offset 108)
+		// FOSA NASAL DERECHA
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.15f, 0.10f, 1.99f));
 		model = glm::scale(model, glm::vec3(0.12f, 0.12f, 0.01f));
