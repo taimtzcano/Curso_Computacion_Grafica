@@ -101,6 +101,8 @@ int main( )
     // Load models
     Model dog((char*)"Models/RedDog.obj");
     Model gato((char*)"Models/CAT+02.obj");
+    Model pollo((char*)"Models/chicken_001.obj");
+
 
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
@@ -136,17 +138,27 @@ int main( )
 
         //Gatoo
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 0.0f));
         model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         gato.Draw(shader);
 
-        
-        model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
+
+        //Pollo
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+        pollo.Draw(shader);
+
+
+        //Segundo perro
+        //model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
+        //model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //dog.Draw(shader);
 
         // Swap the buffers
         glfwSwapBuffers( window );
