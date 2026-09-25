@@ -59,7 +59,7 @@ int main( )
     glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
     
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Previo 6 Martinez Cano Tania", nullptr, nullptr );
+    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Practica 6 Martinez Cano Tania", nullptr, nullptr );
     
     if ( nullptr == window )
     {
@@ -103,15 +103,9 @@ int main( )
     Model gato((char*)"Models/CAT+02.obj");
     Model pollo((char*)"Models/chicken_001.obj");
     Model granja((char*)"Models/LowPoly_FarmReady_blenderobj.obj");
-    //Model vaca((char*)"Models/C_BABY_COW.obj");
     Model peach((char*)"Models/PeachOBJ.obj");
-    Model pasto((char*)"Models/grass(1).obj");
-    Model pastito((char*)"Models/OBJ.obj");
-    Model nube((char*)"Models/cloud.obj");
     Model caballo((char*)"Models/horse_001.obj");
     Model gatito((char*)"Models/kitty_001.obj");
-
-    //Model pastonuevo((char*)"Models/Grass.obj");
 
 
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
@@ -142,10 +136,10 @@ int main( )
 
         // Draw the loaded model
         
+        //Perro
         glm::mat4 model(1);
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         dog.Draw(shader);
-
 
         //Gatoo
         model = glm::mat4(1.0f);
@@ -154,7 +148,6 @@ int main( )
         model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         gato.Draw(shader);
-
 
         //Pollo
         model = glm::mat4(1.0f);
@@ -179,7 +172,6 @@ int main( )
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         gatito.Draw(shader);
-
 
         //Segundo Pollo
         model = glm::mat4(1.0f);
@@ -211,7 +203,7 @@ int main( )
         model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -0.4f, 0.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        nube.Draw(shader);
+        pollo.Draw(shader);
 
         //Peach
         model = glm::mat4(1.0f);
@@ -230,20 +222,14 @@ int main( )
         peach.Draw(shader);
 
 
-        //// Granja
-        //model = glm::mat4(1.0f);
-
         // Granja
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-1.5f, -0.45f, -1.0f));
 
-        // Rotación para poner el modelo de pie (-90 grados en el eje X)
         model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-        // Ajuste adicional sobre el eje Y si necesitas que mire hacia la cámara
         model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-        // Reducción de escala para igualar la proporción del árbol y animales
         model = glm::scale(model, glm::vec3(0.005f, 0.005f, 0.005f));
 
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
