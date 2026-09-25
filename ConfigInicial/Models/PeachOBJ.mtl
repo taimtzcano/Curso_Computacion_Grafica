@@ -1,0 +1,28 @@
+newmtl LaSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd LaPNG.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl Plane018SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd HoaDao.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl Tree01SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd catalpa.jpg
+bump  -bm 9.99 -o_-2.18557e-08_7.94663e-09_dirt06.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
