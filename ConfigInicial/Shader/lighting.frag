@@ -1,3 +1,5 @@
+//lighting.frag
+
 #version 330 core
 in vec3 FragPos;
 in vec3 Normal;
@@ -64,3 +66,4 @@ void main()
     vec3 result = (ambient1 + diffuse1 + specular1) + (ambient2 + diffuse2 + specular2);
     color = vec4(result, 1.0f) * texture(texture_diffusse, TexCoords);
 }
+

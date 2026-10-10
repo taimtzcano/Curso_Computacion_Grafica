@@ -1,5 +1,5 @@
-// Previo 8                                Martínez Cano Tania
-// Fecha de Entrega: 2 de Octubre, 2026    320028603
+// Practica 8                                Martinez Cano Tania
+// Fecha de Entrega: 9 de Octubre            320028603
 
 // Std. Includes
 #include <string>
@@ -35,26 +35,17 @@ void MouseCallback(GLFWwindow* window, double xPos, double yPos);
 void DoMovement();
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
 
-// Light attributes (Perro - Luz 1)
-glm::vec3 lightPos(0.5f, 0.5f, 2.5f);
-float movelightPos = 0.0f;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
-float rot = 0.0f;
-bool activanim = false;
 
-// Light attributes (Pollo - Luz 2)
-glm::vec3 lightPos2(3.0f, 1.5f, 1.5f);
-float movelightPos2 = 0.0f;
-GLfloat deltaTime2 = 0.0f;
-GLfloat lastFrame2 = 0.0f;
-float rot2 = 0.0f;
-bool activanim2 = false;
+// Variables para el movimiento del Sol y Luna
+float sunAngle = 1.57f;  // Ángulo inicial (Sol arriba)
+float sunRadius = 34.0f; // Distancia del recorrido
 
 int main()
 {
@@ -66,8 +57,8 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    // Create GLFWwindow
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo8 Martinez Tania", nullptr, nullptr);
+    // Create a GLFWwindow object
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 8 Martinez Cano Tania", nullptr, nullptr);
 
     if (nullptr == window)
     {
@@ -93,124 +84,21 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     // Setup shaders
-    Shader shader("Shader/modelLoading.vs", "Shader/modelLoading.frag");
-    Shader lampshader("Shader/lamp.vs", "Shader/lamp.frag");
     Shader lightingShader("Shader/lighting.vs", "Shader/lighting.frag");
+    Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
-    // Load models (Perro y Pollo)
-    Model red_dog((char*)"Models/RedDog.obj");
+    // Load models
+    Model dog((char*)"Models/RedDog.obj");
+    Model gato((char*)"Models/CAT+02.obj");
     Model pollo((char*)"Models/chicken_001.obj");
+    Model granja((char*)"Models/LowPoly_FarmReady_blenderobj.obj");
+    Model peach((char*)"Models/PeachOBJ.obj");
+    Model caballo((char*)"Models/horse_001.obj");
+    Model gatito((char*)"Models/kitty_001.obj");
+    Model sol((char*)"Models/Style+Sun_v1_001.obj");
+    Model luna((char*)"Models/MOON05.obj");
 
     glm::mat4 projection = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-
-    float vertices[] = {
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-      -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-       0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-    };
-
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // CARGA DE TEXTURA PERRO
-    
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    int textureWidth, textureHeight, nrChannels;
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char* image;
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-
-    image = stbi_load("Models/Texture_albedo.jpg", &textureWidth, &textureHeight, &nrChannels, 0);
-    if (image)
-    {
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
-        glTexImage2D(GL_TEXTURE_2D, 0, format, textureWidth, textureHeight, 0, format, GL_UNSIGNED_BYTE, image);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load dog texture" << std::endl;
-    }
-    stbi_image_free(image);
-
-
-    // CARGA DE TEXTURA POLLO
-    GLuint textureChicken;
-    glGenTextures(1, &textureChicken);
-    glBindTexture(GL_TEXTURE_2D, textureChicken);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-
-    image = stbi_load("Models/Texture_1.jpg", &textureWidth, &textureHeight, &nrChannels, 0);
-    if (image)
-    {
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
-        glTexImage2D(GL_TEXTURE_2D, 0, format, textureWidth, textureHeight, 0, format, GL_UNSIGNED_BYTE, image);
-        glGenerateMipmap(GL_TEXTURE_2D);
-        std::cout << ">>> Textura Pollo cargada con exito <<<" << std::endl;
-    }
-    else
-    {
-        std::cout << "Failed to load chicken texture" << std::endl;
-    }
-    stbi_image_free(image);
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -222,92 +110,183 @@ int main()
         glfwPollEvents();
         DoMovement();
 
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        // Fondo gris estático
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        lightingShader.Use();
+        // CALCULO DE POSICIÓN DEL SOL Y LA LUNA
+        glm::vec3 farmCenter = glm::vec3(-1.5f, -0.45f, -1.0f);
 
-        // Posiciones dinámicas de cada luz
-        glm::vec3 currentLightPos1 = lightPos + glm::vec3(movelightPos, 0.0f, 0.0f);
-        glm::vec3 currentLightPos2 = lightPos2 + glm::vec3(movelightPos2, 0.0f, 0.0f);
+        // Posición del Sol
+        glm::vec3 sunPos;
+        sunPos.x = farmCenter.x;
+        sunPos.y = farmCenter.y + sin(sunAngle) * sunRadius;
+        sunPos.z = farmCenter.z + cos(sunAngle) * sunRadius;
 
-        GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
-        glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
+        // Posición de la Luna (Opuesta a 180° del Sol)
+        float moonAngle = sunAngle + 3.14159f;
+        glm::vec3 moonPos;
+        moonPos.x = farmCenter.x;
+        moonPos.y = farmCenter.y + sin(moonAngle) * sunRadius;
+        moonPos.z = farmCenter.z + cos(moonAngle) * sunRadius;
 
-
-        // CONFIGURACIÓN DE LUZ 1 (Perro)
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.position"), currentLightPos1.x, currentLightPos1.y, currentLightPos1.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.3f, 0.3f, 0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.8f, 0.8f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.5f, 0.5f, 0.5f);
-
-        // CONFIGURACIÓN DE LUZ 2 (Pollo)
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), currentLightPos2.x, currentLightPos2.y, currentLightPos2.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.3f, 0.3f, 0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.8f, 0.8f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.5f, 0.5f, 0.5f);
+        // Determinar si el Sol está arriba
+        bool isDay = (sunPos.y > farmCenter.y);
 
         glm::mat4 view = camera.GetViewMatrix();
+
+        // 1. DIBUJAR MODELOS CON ILUMINACIÓN
+        lightingShader.Use();
+
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniform3fv(glGetUniformLocation(lightingShader.Program, "viewPos"), 1, glm::value_ptr(camera.GetPosition()));
 
-        // Propiedades de Material
+        // Material
         glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0.8f, 0.8f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
 
-        // Uniform de textura
-        glUniform1i(glGetUniformLocation(lightingShader.Program, "texture_diffusse"), 0);
+        // CONFIGURACIÓN DE LUZ SEGÚN EL DÍA O LA NOCHE
+        if (isDay)
+        {
+            // Luz Principal (Sol - Intensa y Cálida)
+            glUniform3fv(glGetUniformLocation(lightingShader.Program, "light.position"), 1, glm::value_ptr(sunPos));
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.3f, 0.3f, 0.3f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 1.0f, 0.95f, 0.8f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
+        }
+        else
+        {
+            // Luz Principal (Luna - Iluminación azulada ligeramente más clara)
+            glUniform3fv(glGetUniformLocation(lightingShader.Program, "light.position"), 1, glm::value_ptr(moonPos));
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.12f, 0.12f, 0.18f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.35f, 0.38f, 0.45f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.25f, 0.25f, 0.35f);
+        }
 
-        // Renderizar Perro
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        // Luz 2 (Luz secundaria de relleno)
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), 0.0f, 2.0f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.05f, 0.05f, 0.05f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.1f, 0.1f, 0.1f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.1f, 0.1f, 0.1f);
 
+        // Perro
         glm::mat4 model(1.0f);
-        model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        red_dog.Draw(lightingShader);
+        dog.Draw(lightingShader);
 
-        // Renderizar Pollo
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureChicken);
+        // Gato
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 1.5f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        gato.Draw(lightingShader);
 
-        glm::mat4 modelChicken(1.0f);
-        modelChicken = glm::translate(modelChicken, glm::vec3(3.0f, 0.0f, 0.0f));
-        modelChicken = glm::rotate(modelChicken, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelChicken = glm::scale(modelChicken, glm::vec3(3.0f, 3.0f, 3.0f));
-        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelChicken));
-
+        // Pollo 1
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.0f, -0.5f, 0.0f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         pollo.Draw(lightingShader);
 
-
-        // Iluminación Perro (Cubo Luz 1)
-        lampshader.Use();
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
+        // Caballo
         model = glm::mat4(1.0f);
-        model = glm::translate(model, currentLightPos1);
-        model = glm::scale(model, glm::vec3(0.3f));
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        model = glm::translate(model, glm::vec3(-2.0f, -0.5f, 3.0f));
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        caballo.Draw(lightingShader);
 
-
-        // Iluminación Pollo (Cubo Luz 2)
+        // Gatito
         model = glm::mat4(1.0f);
-        model = glm::translate(model, currentLightPos2);
-        model = glm::scale(model, glm::vec3(0.3f));
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        model = glm::translate(model, glm::vec3(-1.0f, -0.4f, 2.5f));
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        gatito.Draw(lightingShader);
 
-        glBindVertexArray(0);
+        // Pollo 2
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-2.0f, -0.5f, 1.5f));
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        pollo.Draw(lightingShader);
+
+        // Pollo 3
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.0f, -0.5f, 3.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        pollo.Draw(lightingShader);
+
+        // Pollo 4
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-2.0f, -0.5f, 0.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        pollo.Draw(lightingShader);
+
+        // Pollo 5
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 4.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -0.4f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        pollo.Draw(lightingShader);
+
+        // Peach 1
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(2.0f, -0.5f, 2.0f));
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        peach.Draw(lightingShader);
+
+        // Peach 2
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.5f, -0.5f, -2.0f));
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        peach.Draw(lightingShader);
+
+        // Granja
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, farmCenter);
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.005f, 0.005f, 0.005f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        granja.Draw(lightingShader);
+
+ 
+        lampShader.Use();
+        glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+
+        // Dibujar Sol
+        glUniform3f(glGetUniformLocation(lampShader.Program, "lampColor"), 1.0f, 0.9f, 0.3f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, sunPos);
+        model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+        glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        sol.Draw(lampShader);
+
+        // Dibujar Luna
+        glUniform3f(glGetUniformLocation(lampShader.Program, "lampColor"), 0.85f, 0.88f, 1.0f);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, moonPos);
+        model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+        glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        luna.Draw(lampShader);
 
         glfwSwapBuffers(window);
     }
-
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
 
     glfwTerminate();
     return 0;
@@ -315,15 +294,16 @@ int main()
 
 void DoMovement()
 {
+    // Movimiento de Cámara
     if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) camera.ProcessKeyboard(FORWARD, deltaTime);
     if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN]) camera.ProcessKeyboard(BACKWARD, deltaTime);
     if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT]) camera.ProcessKeyboard(LEFT, deltaTime);
     if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT]) camera.ProcessKeyboard(RIGHT, deltaTime);
 
-    if (activanim)
-    {
-        if (rot > -90.0f) rot -= 0.1f;
-    }
+    // Teclas J y L para mover el Sol/Luna
+    float sunSpeed = 1.2f * deltaTime;
+    if (keys[GLFW_KEY_J]) sunAngle -= sunSpeed;
+    if (keys[GLFW_KEY_L]) sunAngle += sunSpeed;
 }
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -338,11 +318,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
         if (action == GLFW_PRESS) keys[key] = true;
         else if (action == GLFW_RELEASE) keys[key] = false;
     }
-
-    if (keys[GLFW_KEY_O]) movelightPos += 0.1f;
-    if (keys[GLFW_KEY_L]) movelightPos -= 0.1f;
-    if (keys[GLFW_KEY_F]) movelightPos2 -= 0.1f;
-    if (keys[GLFW_KEY_G]) movelightPos2 += 0.1f;
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
